@@ -29,4 +29,17 @@ RSpec.feature "Customers", type: :feature do
 
     expect(page).to have_content('Customer successfully created')
   end
+
+  scenario 'Show a customer' do
+    customer = Customer.create!(
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+      phone: Faker::PhoneNumber.phone_number,
+      smoker: ['S', 'N'].sample
+    )
+
+    visit(customer_path(customer))
+
+    expect(page).to have_content(customer.name)
+  end
 end
